@@ -1,0 +1,752 @@
+<html>
+<canvas id="Canvas" width="902" height= "730" style="border:0px solid;"></canvas>
+
+<script>
+alert("Instructions: The point of the game is to get to 3 points, you get points by moving your block into the purple square. Choose either cyan or black and see who can win (remember to stay within the borders of the map and do not cross into someone else's path).");
+var c=document.getElementById("Canvas");
+var draws = c.getContext("2d");
+var drawing = c.getContext("2d");
+var h = 26; // x1-lines
+var k = 1; // y-lines
+var a = 1; // x2-lines
+var pox = 0;
+var poy = 0;
+
+var d = 2; // x1-rectangle
+var c = 2; // y1-rectangle
+var j = 1; // x2-rectangle
+var t = 1; // y2-rectangle
+var points = 0; // The number of points that Cyan has
+var points2 = 0; // The number of points that Black has
+
+
+var pie = 430; // Cyan rectangle x
+var cake = 350; // Cyan rectangle y
+var pastry = 5; // Cyan rectangle x2
+var doughnut = 5; // Cyan rectangle y2
+
+var end = [780, 984];
+var control = 0;
+var control2 = 0;
+var control3 = 0;
+var control4 = 0;
+
+var bval = 0; // value of balck
+var cval = 0; // value of cyan
+
+var pie2 = 530; // Black rectangle x
+var cake2 = 454; // Black rectangle y
+var pastry2 = 5; // Black rectangle x2
+var doughnut2 = 5; // Black rectangle y2
+
+var turn = 100 ; // Used to determine whose turn it is
+</script>
+
+<script>
+function shovel(){
+if(turn < 50){
+  // Draws a shovel for black
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2,cake2,20,10);
+draws.fillRect(pie2+2,cake2+10,16,2);
+draws.fillRect(pie2+4,cake2+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie2,cake2,20,2);
+draws.fillRect(pie2,cake2+2,2,8);
+draws.fillRect(pie2+10,cake2,2,2);
+draws.fillRect(pie2+18,cake2+2,2,8);
+draws.fillRect(pie2+16,cake2+10,2,2);
+draws.fillRect(pie2+14,cake2+12,2,2);
+draws.fillRect(pie2+2,cake2+10,2,2);
+draws.fillRect(pie2+4,cake2+12,2,2);
+draws.fillRect(pie2+6,cake2+14,2,2);
+draws.fillRect(pie2+12,cake2+14,2,2);
+draws.fillRect(pie2+8,cake2+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie2+11,cake2+2,2,8);
+draws.fillRect(pie2+7,cake2+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2+9,cake2,2,-16);
+draws.fillRect(pie2+9,cake2-18,6,2);
+draws.fillRect(pie2+9,cake2-18,-4,2);
+}
+// Draws a shovel for Cyan
+else{
+  draws.fillStyle = "#948A82";
+  draws.fillRect(100,100,20,10);
+  draws.fillRect(102,110,16,2);
+  draws.fillRect(104,112,10,2);
+
+  draws.fillStyle = "#000000";
+  draws.fillRect(100,100,20,2);
+  draws.fillRect(100,102,2,8);
+  draws.fillRect(110,100,2,2);
+  draws.fillRect(118,102,2,8);
+  draws.fillRect(116,110,2,2);
+  draws.fillRect(114,112,2,2);
+  draws.fillRect(102,110,2,2);
+  draws.fillRect(104,112,2,2);
+  draws.fillRect(106,114,2,2);
+  draws.fillRect(112,114,2,2);
+  draws.fillRect(108,114,4,2);
+
+  draws.fillStyle = "#42403D";
+  draws.fillRect(111,102,2,8);
+  draws.fillRect(107,102,2,8);
+
+  draws.fillStyle = "#948A82";
+  draws.fillRect(109,100,2,-16);
+  draws.fillRect(109,82,6,2);
+  draws.fillRect(109,82,-4,2);
+
+}
+}
+</script>
+
+
+
+
+<script>
+// creates the colorful backdrop of the map
+var f = ["#bf8040", "#996633", "#e6ccb3", "#4d3319", "#ac7339", "#604020", "#d9b38c"]
+for (x=0; x<=1800000 ; x++)             {
+var chance = Math.floor((Math.random() * 7) + 0);
+drawing.fillStyle= f[chance] ;
+
+drawing.fillRect(d, c, j, t);
+d++;
+if(d==900){
+c++;
+d = 0;
+         }
+
+                                   }
+
+</script>
+
+<script>
+
+for (var g=0; g<=50 ; g++){
+for (x=0; x<50 ; x++)                    {
+drawing.moveTo(a,k);
+drawing.lineTo(h,k);
+k= k+26;
+drawing.lineTo(h,k);
+drawing.lineTo(a,k);
+k= k-26;
+drawing.lineTo(a,k);
+a= a +25;
+
+
+
+                                          }
+
+a= 1;
+k=k+26;
+
+                         }
+
+//colors the invisible black lines
+for (x=0; x<3 ; x++)                {
+
+
+drawing.stroke();
+
+
+                                     }
+// draws two rectangles one Cyan and one black on fixed areas of the map
+draws.fillStyle = "#948A82";
+draws.fillRect(pie,cake,20,10);
+draws.fillRect(pie+2,cake+10,16,2);
+draws.fillRect(pie+4,cake+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie,cake,20,2);
+draws.fillRect(pie,cake+2,2,8);
+draws.fillRect(pie+10,cake,2,2);
+draws.fillRect(pie+18,cake+2,2,8);
+draws.fillRect(pie+16,cake+10,2,2);
+draws.fillRect(pie+14,cake+12,2,2);
+draws.fillRect(pie+2,cake+10,2,2);
+draws.fillRect(pie+4,cake+12,2,2);
+draws.fillRect(pie+6,cake+14,2,2);
+draws.fillRect(pie+12,cake+14,2,2);
+draws.fillRect(pie+8,cake+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie+11,cake+2,2,8);
+draws.fillRect(pie+7,cake+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie+9,cake+8,2,-16);
+draws.fillRect(pie+9,cake-10,6,2);
+draws.fillRect(pie+9,cake-10,-4,2);
+
+
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2,cake2,20,10);
+draws.fillRect(pie2+2,cake2+10,16,2);
+draws.fillRect(pie2+4,cake2+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie2,cake2,20,2);
+draws.fillRect(pie2,cake2+2,2,8);
+draws.fillRect(pie2+10,cake2,2,2);
+draws.fillRect(pie2+18,cake2+2,2,8);
+draws.fillRect(pie2+16,cake2+10,2,2);
+draws.fillRect(pie2+14,cake2+12,2,2);
+draws.fillRect(pie2+2,cake2+10,2,2);
+draws.fillRect(pie2+4,cake2+12,2,2);
+draws.fillRect(pie2+6,cake2+14,2,2);
+draws.fillRect(pie2+12,cake2+14,2,2);
+draws.fillRect(pie2+8,cake2+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie2+11,cake2+2,2,8);
+draws.fillRect(pie2+7,cake2+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2+9,cake2+8,2,-16);
+draws.fillRect(pie2+9,cake2-10,6,2);
+draws.fillRect(pie2+9,cake2-10,-4,2);
+</script>
+
+<body>
+
+<p>Click a button to move</p>
+
+<button onclick="Up()" style="height:200px;width:200px;font-size: 60px">Up</button>
+<button onclick="Down()" style="height:200px;width:200px;font-size: 60px">Down</button>
+<button onclick="Left()" style="height:200px;width:200px;font-size: 60px">Left</button>
+<button onclick="Right()" style="height:200px;width:200px;font-size: 60px">Right</button>
+
+</body>
+
+<script>
+
+
+// Draws a pink rectangle in a random position on the map
+num3 = Math.floor((Math.random() * 36) + 1);
+num4 = Math.floor((Math.random() * 28) + 1);
+drawing.fillStyle= "#FF0000";
+num5 = 25;
+num6 = 26;
+num5 = num5 * num3;
+num6 = num6 * num4;
+num =  5 + num5;
+num2 = 12 + num6;
+
+
+
+pox = num;
+poy = num2;
+for(var xo = 0; xo<=6; xo++){
+draws.fillRect(pox+1,poy-5,2,2);
+pox = pox + 2;
+poy = poy + 2;
+}
+pox = num;
+pox = pox + 12;
+ poy = num2;
+ for(var xo = 0; xo<=6; xo++){
+draws.fillRect(pox+1,poy-5,2,2);
+pox = pox - 2;
+poy = poy + 2;
+}
+
+
+</script>
+
+
+
+
+<script>
+// determines if Cyan or black has won and creates a new pink rectangle
+function button() {
+if (turn >= 50 ){
+if(pie > 902){
+alert("Black has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+if(pie < 0){
+alert("Black has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+if(cake > 730){
+alert("Black has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+if(cake < 0){
+alert("Black has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+                   }
+
+if(pie == num && cake == num2){
+points++;
+
+
+
+num3 = Math.floor((Math.random() * 36) + 1);
+num4 = Math.floor((Math.random() * 28) + 1);
+drawing.fillStyle= "#FF0000";
+num5 = 25;
+num6 = 26;
+num5 = num5 * num3;
+num6 = num6 * num4;
+num =  5 + num5;
+num2 = 12 + num6;
+control3 = num + num2;
+
+
+
+pox = num;
+poy = num2;
+for(var xo = 0; xo<=6; xo++){
+draws.fillRect(pox+1,poy-5,2,2);
+pox = pox + 2;
+poy = poy + 2;
+}
+pox = num;
+pox = pox + 12;
+ poy = num2;
+ for(var xo = 0; xo<=6; xo++){
+draws.fillRect(pox+1,poy-5,2,2);
+pox = pox - 2;
+poy = poy + 2;
+}
+
+
+}
+
+if(points == 3){
+alert("Cyan has won");
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);
+}
+
+if(turn <= 50 ){
+if(pie2 > 902){alert("Cyan has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+if(pie2 < 0){alert("Cyan has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+if(cake2 > 730){alert("Cyan has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+if(cake2 < 0){alert("Cyan has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+              }
+
+if(pie2 == num && cake2 == num2){
+points2++;
+
+
+
+num3 = Math.floor((Math.random() * 36) + 1);
+num4 = Math.floor((Math.random() * 28) + 1);
+drawing.fillStyle= "#FF0000";
+num5 = 25;
+num6 = 26;
+num5 = num5 * num3;
+num6 = num6 * num4;
+num =  5 + num5;
+num2 = 12 + num6;
+
+
+
+
+
+
+
+
+
+
+
+
+pox = num;
+poy = num2;
+for(var xo = 0; xo<=6; xo++){
+draws.fillRect(pox+1,poy-5,2,2);
+pox = pox + 2;
+poy = poy + 2;
+}
+pox = num;
+pox = pox + 12;
+ poy = num2;
+ for(var xo = 0; xo<=6; xo++){
+draws.fillRect(pox+1,poy-5,2,2);
+pox = pox - 2;
+poy = poy + 2;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+if(points2 == 3){
+alert("Black has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);
+}
+
+control = end.length-1;
+control2 = 0;
+for(x = 0; x < end.length-1; x++)    {
+if(end[control] == end[control2] && end[control] != control3){
+
+if(turn <50){alert ("Cyan has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);
+}
+else{alert("Black has won");
+control4 = 1;
+drawing.fillStyle= "#000000" ;
+drawing.fillRect(0, 0, 1000, 1000);}
+                                 }
+control2++;
+                                     }
+              }
+</script>
+
+
+<script>
+function Up() {
+if(control4 == 0){
+if(turn < 50){
+    draws.fillStyle = "#000000";
+  draws.fillRect(pie-5,cake-12,27,28);
+turn = 100;
+cake = cake - 26;
+cval = cake + pie;
+end.push(cval)
+draws.fillStyle = "#948A82";
+draws.fillRect(pie,cake,20,10);
+draws.fillRect(pie+2,cake+10,16,2);
+draws.fillRect(pie+4,cake+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie,cake,20,2);
+draws.fillRect(pie,cake+2,2,8);
+draws.fillRect(pie+10,cake,2,2);
+draws.fillRect(pie+18,cake+2,2,8);
+draws.fillRect(pie+16,cake+10,2,2);
+draws.fillRect(pie+14,cake+12,2,2);
+draws.fillRect(pie+2,cake+10,2,2);
+draws.fillRect(pie+4,cake+12,2,2);
+draws.fillRect(pie+6,cake+14,2,2);
+draws.fillRect(pie+12,cake+14,2,2);
+draws.fillRect(pie+8,cake+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie+11,cake+2,2,8);
+draws.fillRect(pie+7,cake+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie+9,cake+8,2,-16);
+draws.fillRect(pie+9,cake-10,6,2);
+draws.fillRect(pie+9,cake-10,-4,2);
+}
+else{
+    draws.fillStyle = "#000000";
+  draws.fillRect(pie2-5,cake2-12,27,28);
+turn = 0;
+cake2 = cake2 - 26;
+bval = cake2 + pie2;
+end.push(bval)
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2,cake2,20,10);
+draws.fillRect(pie2+2,cake2+10,16,2);
+draws.fillRect(pie2+4,cake2+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie2,cake2,20,2);
+draws.fillRect(pie2,cake2+2,2,8);
+draws.fillRect(pie2+10,cake2,2,2);
+draws.fillRect(pie2+18,cake2+2,2,8);
+draws.fillRect(pie2+16,cake2+10,2,2);
+draws.fillRect(pie2+14,cake2+12,2,2);
+draws.fillRect(pie2+2,cake2+10,2,2);
+draws.fillRect(pie2+4,cake2+12,2,2);
+draws.fillRect(pie2+6,cake2+14,2,2);
+draws.fillRect(pie2+12,cake2+14,2,2);
+draws.fillRect(pie2+8,cake2+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie2+11,cake2+2,2,8);
+draws.fillRect(pie2+7,cake2+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2+9,cake2+8,2,-16);
+draws.fillRect(pie2+9,cake2-10,6,2);
+draws.fillRect(pie2+9,cake2-10,-4,2);
+}
+button();
+return end;
+}
+else{alert("The Game is over")}
+}
+</script>
+
+<script>
+function Down() {
+if(control4 == 0){
+if(turn < 50){
+    draws.fillStyle = "#000000";
+draws.fillRect(pie-5,cake-12,27,28);
+turn = 100;
+cake = cake + 26;
+cval = cake + pie;
+end.push(cval)
+draws.fillStyle = "#948A82";
+draws.fillRect(pie,cake,20,10);
+draws.fillRect(pie+2,cake+10,16,2);
+draws.fillRect(pie+4,cake+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie,cake,20,2);
+draws.fillRect(pie,cake+2,2,8);
+draws.fillRect(pie+10,cake,2,2);
+draws.fillRect(pie+18,cake+2,2,8);
+draws.fillRect(pie+16,cake+10,2,2);
+draws.fillRect(pie+14,cake+12,2,2);
+draws.fillRect(pie+2,cake+10,2,2);
+draws.fillRect(pie+4,cake+12,2,2);
+draws.fillRect(pie+6,cake+14,2,2);
+draws.fillRect(pie+12,cake+14,2,2);
+draws.fillRect(pie+8,cake+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie+11,cake+2,2,8);
+draws.fillRect(pie+7,cake+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie+9,cake+8,2,-16);
+draws.fillRect(pie+9,cake-10,6,2);
+draws.fillRect(pie+9,cake-10,-4,2);
+}
+else{
+    draws.fillStyle = "#000000";
+draws.fillRect(pie2-5,cake2-12,27,28);
+turn = 0;
+cake2 = cake2 + 26;
+bval = cake2 + pie2;
+end.push(bval)
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2,cake2,20,10);
+draws.fillRect(pie2+2,cake2+10,16,2);
+draws.fillRect(pie2+4,cake2+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie2,cake2,20,2);
+draws.fillRect(pie2,cake2+2,2,8);
+draws.fillRect(pie2+10,cake2,2,2);
+draws.fillRect(pie2+18,cake2+2,2,8);
+draws.fillRect(pie2+16,cake2+10,2,2);
+draws.fillRect(pie2+14,cake2+12,2,2);
+draws.fillRect(pie2+2,cake2+10,2,2);
+draws.fillRect(pie2+4,cake2+12,2,2);
+draws.fillRect(pie2+6,cake2+14,2,2);
+draws.fillRect(pie2+12,cake2+14,2,2);
+draws.fillRect(pie2+8,cake2+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie2+11,cake2+2,2,8);
+draws.fillRect(pie2+7,cake2+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2+9,cake2+8,2,-16);
+draws.fillRect(pie2+9,cake2-10,6,2);
+draws.fillRect(pie2+9,cake2-10,-4,2);
+}
+button();
+return end;
+}
+else{alert("The Game is over")}
+}
+</script>
+
+<script>
+function Right() {
+if(control4 == 0){
+if(turn < 50){
+;
+  draws.fillStyle = "#000000";
+draws.fillRect(pie-5,cake-12,27,28);
+turn = 100;
+pie = pie + 25;
+cval = cake + pie;
+end.push(cval)
+draws.fillStyle = "#948A82";
+draws.fillRect(pie,cake,20,10);
+draws.fillRect(pie+2,cake+10,16,2);
+draws.fillRect(pie+4,cake+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie,cake,20,2);
+draws.fillRect(pie,cake+2,2,8);
+draws.fillRect(pie+10,cake,2,2);
+draws.fillRect(pie+18,cake+2,2,8);
+draws.fillRect(pie+16,cake+10,2,2);
+draws.fillRect(pie+14,cake+12,2,2);
+draws.fillRect(pie+2,cake+10,2,2);
+draws.fillRect(pie+4,cake+12,2,2);
+draws.fillRect(pie+6,cake+14,2,2);
+draws.fillRect(pie+12,cake+14,2,2);
+draws.fillRect(pie+8,cake+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie+11,cake+2,2,8);
+draws.fillRect(pie+7,cake+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie+9,cake+8,2,-16);
+draws.fillRect(pie+9,cake-10,6,2);
+draws.fillRect(pie+9,cake-10,-4,2);
+}
+else{
+    draws.fillStyle = "#000000";
+draws.fillRect(pie2-5,cake2-12,27,28);
+turn = 0;
+pie2 = pie2 + 25;
+bval = cake2 + pie2;
+end.push(bval)
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2,cake2,20,10);
+draws.fillRect(pie2+2,cake2+10,16,2);
+draws.fillRect(pie2+4,cake2+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie2,cake2,20,2);
+draws.fillRect(pie2,cake2+2,2,8);
+draws.fillRect(pie2+10,cake2,2,2);
+draws.fillRect(pie2+18,cake2+2,2,8);
+draws.fillRect(pie2+16,cake2+10,2,2);
+draws.fillRect(pie2+14,cake2+12,2,2);
+draws.fillRect(pie2+2,cake2+10,2,2);
+draws.fillRect(pie2+4,cake2+12,2,2);
+draws.fillRect(pie2+6,cake2+14,2,2);
+draws.fillRect(pie2+12,cake2+14,2,2);
+draws.fillRect(pie2+8,cake2+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie2+11,cake2+2,2,8);
+draws.fillRect(pie2+7,cake2+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2+9,cake2+8,2,-16);
+draws.fillRect(pie2+9,cake2-10,6,2);
+draws.fillRect(pie2+9,cake2-10,-4,2);
+}
+button();
+return end;
+}
+else{alert("The Game is over")}
+}
+</script>
+
+<script>
+function Left() {
+if(control4 == 0){
+if(turn < 50){
+  draws.fillStyle = "#000000";
+draws.fillRect(pie-5,cake-12,27,28);
+turn = 100;
+pie = pie - 25;
+cval = cake + pie;
+end.push(cval)
+draws.fillStyle = "#948A82";
+draws.fillRect(pie,cake,20,10);
+draws.fillRect(pie+2,cake+10,16,2);
+draws.fillRect(pie+4,cake+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie,cake,20,2);
+draws.fillRect(pie,cake+2,2,8);
+draws.fillRect(pie+10,cake,2,2);
+draws.fillRect(pie+18,cake+2,2,8);
+draws.fillRect(pie+16,cake+10,2,2);
+draws.fillRect(pie+14,cake+12,2,2);
+draws.fillRect(pie+2,cake+10,2,2);
+draws.fillRect(pie+4,cake+12,2,2);
+draws.fillRect(pie+6,cake+14,2,2);
+draws.fillRect(pie+12,cake+14,2,2);
+draws.fillRect(pie+8,cake+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie+11,cake+2,2,8);
+draws.fillRect(pie+7,cake+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie+9,cake+8,2,-16);
+draws.fillRect(pie+9,cake-10,6,2);
+draws.fillRect(pie+9,cake-10,-4,2);
+}
+else{
+  draws.fillStyle = "#000000";
+draws.fillRect(pie2-5,cake2-12,27,28);
+turn = 0;
+pie2 = pie2 - 25;
+bval = cake2 + pie2;
+end.push(bval)
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2,cake2,20,10);
+draws.fillRect(pie2+2,cake2+10,16,2);
+draws.fillRect(pie2+4,cake2+12,10,2);
+
+draws.fillStyle = "#000000";
+draws.fillRect(pie2,cake2,20,2);
+draws.fillRect(pie2,cake2+2,2,8);
+draws.fillRect(pie2+10,cake2,2,2);
+draws.fillRect(pie2+18,cake2+2,2,8);
+draws.fillRect(pie2+16,cake2+10,2,2);
+draws.fillRect(pie2+14,cake2+12,2,2);
+draws.fillRect(pie2+2,cake2+10,2,2);
+draws.fillRect(pie2+4,cake2+12,2,2);
+draws.fillRect(pie2+6,cake2+14,2,2);
+draws.fillRect(pie2+12,cake2+14,2,2);
+draws.fillRect(pie2+8,cake2+14,4,2);
+
+draws.fillStyle = "#42403D";
+draws.fillRect(pie2+11,cake2+2,2,8);
+draws.fillRect(pie2+7,cake2+2,2,8);
+
+draws.fillStyle = "#948A82";
+draws.fillRect(pie2+9,cake2+8,2,-16);
+draws.fillRect(pie2+9,cake2-10,6,2);
+draws.fillRect(pie2+9,cake2-10,-4,2);
+ }
+button();
+return end;
+}
+else{alert("The Game is over")}
+}
+</script>
+
+</html>
